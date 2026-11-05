@@ -1,0 +1,128 @@
+
+
+/* =========================================================
+   Markdown Preview Enhanced 适配层（改动请到仓库的 clawlike/adapter.css）
+   上面是 Typora 主题原文。Typora 的 DOM 是 #write、pre.md-fences、sup.md-footnote，
+   插件的 DOM 是 .crossnote、pre[data-role=codeBlock]、sup.footnote-ref，
+   这里把同样的排版映射过来。代码块配色接在这段后面（来自 prism/）。
+   ========================================================= */
+
+/* 插件的 UI 库按系统明暗设置 :root，这里跟随主题本身，否则复选框、滚动条的明暗会和页面相反 */
+html:root {
+    background-color: var(--bg-paper);
+}
+
+/* #write → 预览内容容器；VS Code 分栏时窗口窄，左右留白随之收窄 */
+body.preview-container .crossnote[data-for="preview"] {
+    padding: 55px clamp(2em, 7vw, 75px);
+}
+
+/* 目录侧栏是 fixed 定位，打开时不能再居中，否则内容会压到侧栏下面 */
+body.preview-container:not(.show-sidebar-toc) .crossnote[data-for="preview"] {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.markdown-preview > :first-child {
+    margin-top: 0;
+}
+
+/* Typora 的 base.css 提供、主题没有写的默认值 */
+.markdown-preview h4 { font-size: 1.4rem; }
+.markdown-preview h5 { font-size: 1.2rem; }
+.markdown-preview h6 { font-size: 1rem; }
+
+.markdown-preview li p {
+    margin: 0.5rem 0;
+}
+
+.markdown-preview blockquote > :first-child,
+.markdown-preview li > :first-child {
+    margin-top: 0;
+}
+
+.markdown-preview blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+/* 任务列表 */
+.markdown-preview li.task-list-item {
+    list-style: none;
+}
+
+.markdown-preview .task-list-item-checkbox {
+    margin: 0 0.2em 0.25em -1.8em;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* 主题的 code 规则写给行内代码；Typora 的代码块是 CodeMirror，插件的代码块是 pre > code，要还原 */
+.markdown-preview pre code,
+.markdown-preview pre tt {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+}
+
+/* .md-table-fig → 插件的表格没有外层容器，也就没有横向滚动。
+   单元格下限随窗口收窄，四列以内的表格保持撑满宽度；五列起转成 block，在表格内部滚动。 */
+.markdown-preview table {
+    margin: 2em 0;
+}
+
+.markdown-preview th,
+.markdown-preview td {
+    min-width: clamp(64px, 12vw, 140px);
+    padding-left: clamp(10px, 2.2vw, 24px);
+    padding-right: clamp(10px, 2.2vw, 24px);
+}
+
+.markdown-preview th:first-child,
+.markdown-preview td:first-child {
+    padding-left: 12px;
+}
+
+@media screen {
+    .markdown-preview table:has(th:nth-child(5), td:nth-child(5)) {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* sup.md-footnote → sup.footnote-ref */
+.markdown-preview sup,
+.markdown-preview sub {
+    line-height: 0;
+}
+
+.markdown-preview sup.footnote-ref {
+    font-family: var(--font-sans);
+    font-size: 0.72em;
+    vertical-align: super;
+}
+
+.markdown-preview sup.footnote-ref a {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.markdown-preview .footnotes {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    letter-spacing: 0.015em;
+    opacity: 0.8;
+}
+
+/* 主题给所有链接加了下划线；目录、标签、脚注返回这些导航链接不需要 */
+.md-sidebar-toc a,
+.markdown-preview .md-toc a,
+.markdown-preview a.tag,
+.markdown-preview .footnote-backref {
+    border-bottom: none;
+}

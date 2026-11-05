@@ -339,6 +339,13 @@ class NotebooksManager {
     theme: PreviewTheme,
     color: 'light' | 'dark',
   ): PreviewTheme {
+    // [clawlike] This pair is not in crossnote's PreviewTheme type, see clawlike/apply.js.
+    const themeName: string = theme;
+    if (themeName === 'clawlike-g2.css' || themeName === 'clawlike-dark.css') {
+      const counterpart: string =
+        color === 'light' ? 'clawlike-g2.css' : 'clawlike-dark.css';
+      return counterpart as PreviewTheme;
+    }
     switch (theme) {
       case 'atom-dark.css':
       case 'atom-light.css': {

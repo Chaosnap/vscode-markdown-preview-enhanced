@@ -1,0 +1,78 @@
+
+
+/* Clawlike Light 代码块：VS Code Light+ 配色，取值和 Typora 主题 .cm-s-inner 一致。
+   这段也接在预览主题后面，所以代码块配色始终跟着主题走。 */
+
+/* VS Code 给预览页的 html 设了 scrollbar-color，轨道是编辑器背景色；
+   编辑器是暗色时，亮色页面上的滚动条会变成一条黑边，这里按主题覆盖 */
+html:root {
+    scrollbar-color: #d0d0cc var(--bg-paper, #ffffff);
+}
+
+.markdown-preview pre[class*=language-] {
+    margin: 1em 0;
+    padding: 16px;
+    overflow: auto;
+    border: 1px solid #F4F4F4;
+    border-radius: 9px;
+    background: var(--code-bg, #f6f8fa);
+    box-shadow: none;
+    color: #2e2e2e;
+    font-family: var(--font-mono, "Styrene B", sans-serif);
+    font-size: 0.9em;
+    line-height: 1.6;
+    text-shadow: none;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    tab-size: 4;
+    hyphens: none;
+    scrollbar-color: #c8cbcf var(--code-bg, #f6f8fa);
+}
+
+.markdown-preview pre[class*=language-] ::selection,
+.markdown-preview pre[class*=language-]::selection {
+    background: #ADD6FF;
+    color: inherit;
+    text-shadow: none;
+}
+
+/* 行号：对应 Typora 的 CodeMirror-gutters / CodeMirror-linenumber */
+.markdown-preview pre[class*=language-].line-numbers .line-numbers-rows {
+    top: 16px;
+    border-right-color: rgba(20, 20, 19, 0.08);
+}
+
+.markdown-preview pre[class*=language-].line-numbers .line-numbers-rows > span::before {
+    color: #9A9995;
+}
+
+.markdown-preview pre .token { background: none; text-shadow: none; }
+.markdown-preview pre .token.comment, .markdown-preview pre .token.prolog, .markdown-preview pre .token.doctype, .markdown-preview pre .token.cdata { color: #008000; }
+.markdown-preview pre .token.keyword, .markdown-preview pre .token.atrule { color: #AF00DB; }
+.markdown-preview pre .token.string, .markdown-preview pre .token.char, .markdown-preview pre .token.attr-value, .markdown-preview pre .token.regex { color: #a31515; }
+.markdown-preview pre .token.number { color: #098658; }
+.markdown-preview pre .token.boolean, .markdown-preview pre .token.constant, .markdown-preview pre .token.symbol { color: #0000ff; }
+.markdown-preview pre .token.function { color: #795E26; }
+.markdown-preview pre .token.class-name, .markdown-preview pre .token.namespace { color: #267f99; opacity: 1; }
+.markdown-preview pre .token.builtin, .markdown-preview pre .token.variable, .markdown-preview pre .token.property { color: #001080; }
+.markdown-preview pre .token.operator, .markdown-preview pre .token.punctuation { color: #000000; }
+.markdown-preview pre .token.tag, .markdown-preview pre .token.decorator, .markdown-preview pre .token.annotation, .markdown-preview pre .token.shebang, .markdown-preview pre .token.important { color: #800000; }
+.markdown-preview pre .token.attr-name { color: #ff0000; }
+.markdown-preview pre .token.selector { color: #267f99; }
+.markdown-preview pre .token.url, .markdown-preview pre .token.entity { color: #0000ff; text-decoration: underline; }
+.markdown-preview pre .token.inserted { color: #098658; }
+.markdown-preview pre .token.deleted { color: #cd3131; }
+.markdown-preview pre .token.bold, .markdown-preview pre .token.important { font-weight: 700; }
+.markdown-preview pre .token.italic { font-style: italic; }
+.markdown-preview pre .token.entity { cursor: help; }
+
+@media print {
+    .markdown-preview pre[class*=language-] {
+        border-color: #D9D9D7;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

@@ -1,6 +1,6 @@
 {
   "name": "markdown-preview-enhanced",
-  "displayName": "%displayName%",
+  "displayName": "Markdown Preview Enhanced (Clawlike)",
   "version": "0.8.40",
   "description": "%description%",
   "categories": [
@@ -10,9 +10,9 @@
     "markdown"
   ],
   "bugs": {
-    "url": "https://github.com/shd101wyy/vscode-markdown-preview-enhanced/issues"
+    "url": "https://github.com/Chaosnap/vscode-markdown-preview-enhanced/issues"
   },
-  "repository": "https://github.com/shd101wyy/vscode-markdown-preview-enhanced",
+  "repository": "https://github.com/Chaosnap/vscode-markdown-preview-enhanced",
   "license": "NCSA",
   "contributors": [
     "shd101wyy",
@@ -20,13 +20,13 @@
     "gabyx",
     "mavaddat"
   ],
-  "publisher": "shd101wyy",
+  "publisher": "chaosnap",
   "packageManager": "pnpm@10.28.0",
   "main": "./out/native/extension.js",
   "browser": "./out/web/extension.js",
   "l10n": "l10n/bundle.l10n.json",
   "scripts": {
-    "build": "gulp copy-files && gulp clean-out && node build.js",
+    "build": "gulp copy-files && gulp clean-out && node build.js && node clawlike/apply.js",
     "check:all": "pnpm check:eslint && pnpm check:prettier",
     "check:eslint": "eslint \"**/*\"",
     "check:prettier": "prettier --check \"**/*.*\"",
@@ -520,6 +520,8 @@
             "atom-dark.css",
             "atom-light.css",
             "atom-material.css",
+            "clawlike-dark.css",
+            "clawlike-g2.css",
             "github-dark.css",
             "github-light.css",
             "gothic.css",
@@ -539,6 +541,8 @@
             "%markdown-preview-enhanced.previewTheme.markdownEnumDescriptions.0%",
             "%markdown-preview-enhanced.previewTheme.markdownEnumDescriptions.1%",
             "%markdown-preview-enhanced.previewTheme.markdownEnumDescriptions.2%",
+            "Clawlike Dark",
+            "Clawlike Light",
             "%markdown-preview-enhanced.previewTheme.markdownEnumDescriptions.3%",
             "%markdown-preview-enhanced.previewTheme.markdownEnumDescriptions.4%",
             "%markdown-preview-enhanced.previewTheme.markdownEnumDescriptions.5%",

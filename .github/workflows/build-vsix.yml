@@ -1,0 +1,48 @@
+name: "Build VSIX"
+on:
+  push:
+    branches:
+      - clawlike
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    name: "Build VSIX"
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Check out code'
+        uses: actions/checkout@v5
+      - name: 'Install pnpm'
+        uses: pnpm/action-setup@v4
+        # The pnpm version is read from the packageManager field in package.json
+      - name: 'Install nodejs'
+        # Node 18: the runtime of the VS Code extension host, same as test.yml.
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .tool-versions
+          cache: pnpm
+      - name: 'Build and test'
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
+          pnpm test
+      # vsce needs Node 20, see the note in test.yml.
+      - name: 'Install nodejs 20 for vsce'
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+      - name: 'Package the vsix'
+        run: |
+          npm install -g @vscode/vsce@3.9.2
+          # vsce runs vscode:prepublish, which installs and builds again.
+          # --no-dependencies: `npm list` fails on pnpm's symlinked node_modules,
+          # and the extension is fully bundled by esbuild anyway.
+          vsce package --no-dependencies
+          ls -lah *.vsix
+      - name: 'Upload the vsix artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: markdown-preview-enhanced-clawlike-vsix
+          path: '*.vsix'
+          if-no-files-found: error
